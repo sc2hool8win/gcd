@@ -29,7 +29,7 @@ If you have a unique directory name under the control of git, you can skip the l
     $ gcd hierC        #Unique DIR name.
     $ gcd L            #It can be the first match of LevelC,Lev,or L.
     ```
-- In this way, you can move smartly without entering your PATH.
+    - In this way, you can move smartly without entering your PATH.
 
 ## Environment (develop)
 1. Ubuntu 18.04.5 LTS
@@ -88,6 +88,10 @@ If you have a unique directory name under the control of git, you can skip the l
 1. Create `.gitkeep` to target the current DIR.
     ```bash
     $ gcd ..        #The current DIR where .gitkeep is not located.
+    ```
+1. Go to the root DIR in your Git repository.
+    ```bash
+    $ gcd
     ```
 
 ## Status
