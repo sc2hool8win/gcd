@@ -12,7 +12,7 @@ If you have a unique directory name under the control of git, you can skip the l
   - Do a Change Directory using this.
 
 ## Example 
-1. Suppose you have directories.  The Git repository is /repo.  
+1. Suppose you have directories.  The Git repository is `/repo`.  
 `/repo/sample/hier/route1/hierA/hierB/hierC` and `/repo/sample/hier/route2/levelA/levelB/LevelC`.
 1. This is an example of moving to "hierC" first and then to "levelC".
 - `cd` : (Standard change directory)
@@ -27,7 +27,7 @@ If you have a unique directory name under the control of git, you can skip the l
     $ pwd 
     /repo
     $ gcd hierC        #Unique DIR name.
-    $ gcd L            #It can be the first match of LevelC,Lev,or L.
+    $ gcd L            #Unique directory header character.For example,Leve,Lev,or L may be used.
     ```
     - In this way, you can move smartly without entering your PATH.
 
@@ -55,7 +55,7 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
 
 ## Setting
-1. Must be set to alias. `$HOME/.bashrc`
+1. Must be set to alias. Add to `$HOME/.bashrc`
     ```bash
     function _gcd() {
         gd=`~/<USER Build PATH>/target/release/gcd $1`;
@@ -64,14 +64,14 @@ If you have a unique directory name under the control of git, you can skip the l
     }
     alias gcd=_gcd
     ```
-1. (Optional:Application to bash-completion.) `$HOME/.bash_completion` 
+1. (Optional:Application to bash-completion.) Add to `$HOME/.bash_completion` 
     ```bash
     function comp_gcd() {
       COMPREPLY=( $(compgen -W "$( git rev-parse --show-toplevel | xargs -I {} cat "{}/.keepCache" | awk -F/ \{print\ \$\(NF-1\)\} | tr "\n" " ")" ${COMP_WORDS[COMP_CWORD]}  ) ) 
     }
     complete -F comp_gcd gcd
     ```
-1. (Optional:Symbolic links can be used by creating a Config file.)`<git root directory>/.keepSlink`  
+1. (Optional:Symbolic links can be used by creating a Config file.) Create a `<git root directory>/.keepSlink` file. 
     Example: The sample symbolic directory is described as follows.
     ```bash
     $ cat .keepSlink  
@@ -89,11 +89,11 @@ If you have a unique directory name under the control of git, you can skip the l
     ```bash
     $ gcd ..        #The current DIR where .gitkeep is not located.
     ```
-1. Go to the root DIR in your Git repository.
+1. Go to the root DIR in your Git repository. (Git Home Directory)
     ```bash
     $ gcd
     ```
 
 ## Status
-- I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I've only just stopped getting compile errors, and I'm still working on refining it.
+- I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I just want to make it look like Rust, as the compile error has just disappeared.
 
