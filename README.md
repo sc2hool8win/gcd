@@ -54,7 +54,7 @@ If you have a unique directory name under the control of git, you can skip the l
     ./target/release/gcd: xxx,xxx, stripped
     ```
 
-## Setting
+## Setting bash
 1. Must be set to alias. Add to `$HOME/.bashrc`
     ```bash
     function _gcd() {
@@ -71,6 +71,19 @@ If you have a unique directory name under the control of git, you can skip the l
     }
     complete -F comp_gcd gcd
     ```
+
+
+## Setting csh  
+1. Must be set to alias. Add to `$HOME/.cshrc`
+    ```bash
+    alias gcd 'cd `(~/<USER Build PATH>/target/release/gcd \!*)`;pwd'
+    ```
+1. (Optional:Application to completion.) Add to `$HOME/.cshrc` 
+    ```bash
+    complete gcd 'p@1@`git rev-parse --show-toplevel | xargs -I {} cat "{}/.keepCache" | awk -F/ \{print\ \$\(NF-1\)\} | tr "\n" " "`@'
+    ```
+
+## Setting common (bash & csh)
 1. (Optional:Symbolic links can be used by creating a Config file.) Create a `<git root directory>/.keepSlink` file. 
     Example: The sample symbolic directory is described as follows.
     ```bash
@@ -79,7 +92,7 @@ If you have a unique directory name under the control of git, you can skip the l
     ./sample/hier/route2/levelA/levelB/s_hierC/  
     ```
     - This is useful for non-Git managed DIRs.
-
+    
 ## Other operations
 1. Rebuild the dictionary `.gitCache` 
     ```bash
