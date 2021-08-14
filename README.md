@@ -22,6 +22,8 @@ If you have a unique directory name under the control of git, you can skip the l
     $ cd sample/hier/route1/hierA/hierB/hierC    
     $ cd ../../../../route2/levelA/levelB/LevelC  
     ```  
+    ![Demo-cd](sample/doc/cd.gif)  
+
 - `gcd` : (git-smart change directory)
     ```bash
     $ pwd 
@@ -29,7 +31,8 @@ If you have a unique directory name under the control of git, you can skip the l
     $ gcd hierC        #Unique DIR name.
     $ gcd L            #Unique directory header character.For example,Leve,Lev,or L may be used.
     ```
-    - In this way, you can move smartly without entering your PATH.
+    ![Demo-gcd](sample/doc/gcd.gif)  
+    - In this way, you can move smartly without entering your PATH.  
 
 ## Environment (develop)
 1. Ubuntu 18.04.5 LTS
