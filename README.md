@@ -7,6 +7,7 @@ If you have a unique directory name under the control of git, you can skip the l
 - Git cannot add a completely empty directory. Many people who want to maintain an empty directory in Git have created a convention of putting a file called ".gitkeep" in that directory.
 
 - The program uses the .gitkeep file to do the following :  
+  - After adding the file to an empty DIR, use the ".gitkeep" file without deleting it.
   - It will create a list of PATH for the directory where the ".gitkeep" file is located.
   - It then compares that list with the name of the destination directory and changes it directly to the full path with a forward match.
   - Do a Change Directory using this.
