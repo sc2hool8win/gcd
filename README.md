@@ -98,7 +98,7 @@ If you have a unique directory name under the control of git, you can skip the l
     - This is useful for non-Git managed DIRs.
     
 ## Other operations
-1. Rebuild the dictionary `.gitCache` 
+1. Rebuild the dictionary `.keepCache` 
     ```bash
     $ gcd //        #Create a list and go to the repository root.
     ```
