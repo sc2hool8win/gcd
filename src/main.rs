@@ -22,7 +22,8 @@ fn main() {
         trace!("git_dir: Top name is [{}]%", _top_dir_name);
 
         let search_dir;
-        if args.len() > 1 { search_dir = &args[1];
+        if args.len() > 1 {
+            search_dir = &args[1];
         } else {
             search_dir = &_top_dir_name;
         }
@@ -31,11 +32,16 @@ fn main() {
 
         let _path_gitcache = format!("{}{}", _top_dir_name, ".keepCache");
         let _path_head = format!("{}{}", _top_dir_name, ".git/logs/HEAD");
-        debug!("new_head_time = [{}]%", new_head_time( &_path_gitcache,&_path_head ));
-        let _target = check_listf(&_top_dir_name, search_dir);
-        trace!("_target::{}",_target);
-        get_keep_list(&_top_dir_name.to_string());
-        // making .keepCashe
+        let bool_auto_cache = new_head_time(&_path_gitcache, &_path_head);
+        let _target = final_dir_target(&_top_dir_name, search_dir);
+        info!("new_head_time = [{}]%", bool_auto_cache);
+        info!("_target::{}",_target);
+        if bool_auto_cache | &search_dir.starts_with("//")   {
+            info!("create_keep_cache_list = TRUE");
+            // making .keepCache
+            create_keep_cache_list(&_top_dir_name.to_string());
+        }
+        // 
         let _gcd = get_gcd_path(&_top_dir_name, &_target);
         trace!("_gcd = [{}]", _gcd );
         print!("{}", _gcd);
@@ -88,10 +94,11 @@ fn new_head_time(_file1:&str, _file2:&str) -> bool{
         .status()
         .expect("Timestamp comparison`");
     let _comp_bool = output.success();
+    trace!("_comp_bool: {}", &_comp_bool );
     return _comp_bool
 }
 
-fn check_listf(_top_dir:&str, _args1:&str) -> String{
+fn final_dir_target(_top_dir:&str, _args1:&str) -> String{
     let pwd = env::current_dir().unwrap();
     let _pwd:String = pwd.display().to_string();
     trace!("pwd : {}", pwd.display() );
@@ -109,25 +116,25 @@ fn check_listf(_top_dir:&str, _args1:&str) -> String{
         let _output = Command::new("touch")
             .args( &[".gitkeep"] )
             .status()
-            .expect("check_listf touch gitkeep");
+            .expect("final_dir_target touch gitkeep");
         _search_name = &_dir;
     }
     /* ##### magic command "//", Rebuilding ##### */
     if _args1 == "//" {
         _search_name = &_pwd;
     }
-    debug!("check_listf::return _search_name: {}", _search_name );
+    debug!("final_dir_target::return _search_name: {}", _search_name );
     return _search_name.to_string()
 }
 
-fn get_keep_list( _top_dir:&str){
+fn create_keep_cache_list( _top_dir:&str){
     let _output = Command::new("find")
         .args(&[ _top_dir, "-name", ".gitkeep", "-type", "f"])
         .output()
         .expect("failed to start `find .gitkeep`");
     let _find_path = String::from_utf8_lossy(&_output.stdout);
     let _find_paths = _find_path.trim() ;
-    debug!("get_keep_list::_find_paths: {}", _find_paths );
+    debug!("create_keep_cache_list::_find_paths: {}", _find_paths );
     //### Make: LIST 1st
     let mut _vec_dlink:Vec<String> = Vec::new();
     let _v: Vec<&str> = _find_paths.split_whitespace().collect();
@@ -149,6 +156,7 @@ fn get_keep_list( _top_dir:&str){
     //### LIST 2nd (Add user Synbolic link)
     let _slines = fs::read_to_string(_sread ).unwrap();
     let _vlines: Vec<&str> = _slines.split_whitespace().collect();
+    //
     let mut _vec_slink:Vec<String> = Vec::new();
     for _line in _vlines.iter() {
         trace!("_line: {}", _line );
@@ -196,15 +204,17 @@ fn get_keep_list( _top_dir:&str){
     let file = OpenOptions::new()
         .write(true)
         .truncate(true)
-        .open(&_write_fname).expect("file create error");
+        .open(&_write_fname).expect("Error: Open keepCache");
     let mut buf_writer = BufWriter::new(file);
-    info!("write_file={}", &_write_fname);
+    debug!("write_file={}", &_write_fname);
     for _p in _vec_gcd.iter() {
         debug!("W:{}",_p.gcd_path);
-        writeln!(buf_writer, "{}",_p.gcd_path).expect("file write error");
+        writeln!(buf_writer, "{}",_p.gcd_path).expect("Error: Write keepCache");
     }
 }
 
+//
+//
 #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
 struct GcdPath {
     gcd_path: String,
