@@ -36,7 +36,7 @@ fn main() {
         let _target = final_dir_target(&_top_dir_name, search_dir);
         info!("new_head_time = [{}]%", bool_auto_cache);
         info!("_target::{}",_target);
-        if bool_auto_cache | &search_dir.starts_with("//")   {
+        if bool_auto_cache | ( search_dir == "//") | ( search_dir == "..")  {
             info!("create_keep_cache_list = TRUE");
             // making .keepCache
             create_keep_cache_list(&_top_dir_name.to_string());
