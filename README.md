@@ -68,7 +68,7 @@ If you have a unique directory name under the control of git, you can skip the l
     }
     alias gcd=_gcd
     ```
-1. (Optional:Application to bash-completion.) Add to `$HOME/.bash_completion` 
+1. (Optional: Application to bash-completion.) Add to `$HOME/.bash_completion` 
     ```bash
     function comp_gcd() {
       COMPREPLY=( $(compgen -W "$( git rev-parse --show-toplevel | xargs -I {} cat "{}/.keepCache" | awk -F/ \{print\ \$\(NF-1\)\} | tr "\n" " ")" ${COMP_WORDS[COMP_CWORD]}  ) ) 
@@ -82,13 +82,13 @@ If you have a unique directory name under the control of git, you can skip the l
     ```bash
     alias gcd 'cd `(~/<USER Build PATH>/target/release/gcd \!*)`;pwd'
     ```
-1. (Optional:Application to completion.) Add to `$HOME/.cshrc` 
+1. (Optional: Application to completion.) Add to `$HOME/.cshrc` 
     ```bash
     complete gcd 'p@1@`git rev-parse --show-toplevel | xargs -I {} cat "{}/.keepCache" | awk -F/ \{print\ \$\(NF-1\)\} | tr "\n" " "`@'
     ```
 
 ## Setting common (bash & csh)
-1. (Optional:Symbolic links can be used by creating a Config file.) Create a `<git root directory>/.keepSlink` file. 
+1. (Optional: Symbolic links can be used by creating a Config file.) Create a `<git root directory>/.keepSlink` file. 
     Example: The sample symbolic directory is described as follows.
     ```bash
     $ cat .keepSlink  
@@ -104,13 +104,16 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
 1. Create `.gitkeep` to target the current DIR.
     ```bash
-    $ gcd ..        #The current DIR where .gitkeep is not located.
+    $ gcd ..        #Place ".gitkeep" in the current DIR and rebuild the dictionary.
     ```
 1. Go to the root DIR in your Git repository. (Git Home Directory)
     ```bash
     $ gcd
     ```
+1. Internal Automatic Operation
+    1. If the creation date of the file ".git/logs/HEAD" is newer than the creation date of the dictionary list, the dictionary list ".keepCache" will be automatically rebuilt before being moved by the command. 
 
 ## Status
-- I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I just want to make it look like Rust, as the compile error has just disappeared.
+- Release v0.1.0 : I started using commands in normal work.
+- Start v0.0.0 : I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I just want to make it look like Rust, as the compile error has just disappeared.
 
