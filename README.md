@@ -111,9 +111,10 @@ If you have a unique directory name under the control of git, you can skip the l
     $ gcd
     ```
 1. Internal Automatic Operation
-    1. If the creation date of the file ".git/logs/HEAD" is newer than the creation date of the dictionary list, the dictionary list ".keepCache" will be automatically rebuilt before being moved by the command. 
+    1. If the creation date of the file ".git/logs/HEAD" is newer than the creation date of the dictionary list, the dictionary list ".keepCache" will be automatically rebuilt before being moved by the command.   
+    1.  Note: Since it refers to logs/HEAD, "gcd" does not work in a repository with 0 commits.
 
 ## Status
 - Release v0.1.0 : I started using commands in normal work.
-- Start v0.0.0 : I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I just want to make it look like Rust, as the compile error has just disappeared.
+- Start v0.0.0 : I was thinking of learning a non-interpreter language and considered C and Rust. I thought the Rust language would be interesting to start with; I often work in Git's Shell environment and wanted to make it easy to move DIRs that require up and down the hierarchy, so that's what I went for for my first Rust. I would like to learn how to write code that takes advantage of the features of the Rust language.
 
