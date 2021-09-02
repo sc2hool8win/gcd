@@ -11,6 +11,7 @@ If you have a unique directory name under the control of git, you can skip the l
   - It will create a list of PATH for the directory where the ".gitkeep" file is located.
   - It then compares that list with the name of the destination directory and changes it directly to the full path with a forward match.
   - Do a Change Directory using this.
+  - Note: Since it refers to .git/logs/HEAD, "gcd" does not work in a repository with 0 commits.
 
 ## Example 
 1. Suppose you have directories.  The Git repository is `/repo`.  
@@ -112,7 +113,6 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
 1. Internal Automatic Operation
     1. If the creation date of the file ".git/logs/HEAD" is newer than the creation date of the dictionary list, the dictionary list ".keepCache" will be automatically rebuilt before being moved by the command.   
-    1.  Note: Since it refers to logs/HEAD, "gcd" does not work in a repository with 0 commits.
 
 ## Status
 - Release v0.1.0 : I started using commands in normal work.
