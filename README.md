@@ -98,6 +98,10 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
     - This is useful for non-Git managed DIRs.
     
+## Use binary release  
+- Binary is a cross-compiler release for musl-libc such as CentOS and Ubuntu.  
+- Set "~/\<USER Build PATH\>/target/release/gcd" to the path where gcd is installed.  
+
 ## Other operations
 1. Rebuild the dictionary `.keepCache` 
     ```bash
