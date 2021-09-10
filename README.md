@@ -10,13 +10,13 @@ If you have a unique directory name under the control of git, you can skip the l
   - After adding the file to an empty DIR, use the ".gitkeep" file without deleting it.
   - It will create a list of PATH for the directory where the ".gitkeep" file is located.
   - It then compares that list with the name of the destination directory and changes it directly to the full path with a forward match.
-  - Do a Change Directory using this.
+  - Do a Change Directory using this. (If you "cd" many times, use a unique DIR name.)
   - Note: Since it refers to .git/logs/HEAD, "gcd" does not work in a repository with 0 commits.
 
 ## Example 
 1. Suppose you have directories.  The Git repository is `/repo`.  
 `/repo/sample/hier/route1/hierA/hierB/hierC` and `/repo/sample/hier/route2/levelA/levelB/LevelC`.
-1. This is an example of moving to "hierC" first and then to "levelC".
+1. This is an example of moving to "hierC" first and then to "LevelC".
 - `cd` : (Standard change directory)
     ```bash
     $ pwd
@@ -31,7 +31,7 @@ If you have a unique directory name under the control of git, you can skip the l
     $ pwd 
     /repo
     $ gcd hierC        #Unique DIR name.
-    $ gcd L            #Unique directory header character.For example,Leve,Lev,or L may be used.
+    $ gcd L            #Unique directory header character. Even if it is not LevelC, judged by L.
     ```
     ![Demo-gcd](sample/doc/gcd.gif)  
     - In this way, you can move smartly without entering your PATH.  
@@ -59,7 +59,7 @@ If you have a unique directory name under the control of git, you can skip the l
     ./target/release/gcd: xxx,xxx, stripped
     ```
 
-## Setting bash
+## Setting for bash
 1. Must be set to alias. Add to `$HOME/.bashrc`
     ```bash
     function _gcd() {
@@ -78,7 +78,7 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
 
 
-## Setting csh  
+## Setting for csh  
 1. Must be set to alias. Add to `$HOME/.cshrc`
     ```bash
     alias gcd 'cd `(~/<USER Build PATH>/target/release/gcd \!*)`;pwd'
