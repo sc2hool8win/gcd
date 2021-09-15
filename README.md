@@ -14,13 +14,10 @@ If you have a unique directory name under the control of git, you can skip the l
   - Note: Since it refers to .git/logs/HEAD, "gcd" does not work in a repository with 0 commits.
 
 ## Example 
-1. Suppose you have directories.  The Git repository is `/repo`.  
-`/repo/sample/hier/route1/hierA/hierB/hierC` and `/repo/sample/hier/route2/levelA/levelB/LevelC`.
+1. For example, there is a sample directory at the top of the Git repository. In addition, there are sample/hier/route1/hierA/hierB/hierC and sample/hier/route2/levelA/ levelB/LevelC in the working DIR.
 1. This is an example of moving to "hierC" first and then to "LevelC".
 - `cd` : (Standard change directory)
     ```bash
-    $ pwd
-    /repo
     $ cd sample/hier/route1/hierA/hierB/hierC    
     $ cd ../../../../route2/levelA/levelB/LevelC  
     ```  
@@ -28,8 +25,6 @@ If you have a unique directory name under the control of git, you can skip the l
 
 - `gcd` : (git-smart change directory)
     ```bash
-    $ pwd 
-    /repo
     $ gcd hierC        #Unique DIR name.
     $ gcd L            #Unique directory header character. Even if it is not LevelC, judged by L.
     ```
