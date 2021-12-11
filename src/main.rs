@@ -243,11 +243,22 @@ fn get_gcd_path( _top_dir:&str, _search_dir:&str) -> String{
         trace!("_vp:{:?}",_vp);
         //if _vp.ends_with("/examples/"){
         if _vp.find(&_search_word).is_some()    {
-            debug!("mach!#240#:{},{}",_vp,_search_dir);
+            debug!("mach!#247#:{},{}",_vp,_search_dir);
+            debug!("mach!#248#:{},{}",_vp,_search_word);
             //
-            let _vword: Vec<&str> = _vp.rsplit('/').collect(); // ends word
-            debug!("#243# {},{}",&_vword[1],_search_dir);
-            if _vword[1].find(&_search_dir).is_some() {
+            let _vword: Vec<&str> = _vp.rsplit('/').collect(); // last word
+            let _sword: Vec<&str> = _search_dir.rsplit('/').collect(); // last search
+            debug!("#end word: {},{} {}",&_vword[1],_search_dir,&_sword[0]);
+            //==== sense_vp: Concatenated path judgment ================
+            let _nest = _search_dir.match_indices("/").count();
+            debug!("_nest:{}",&_nest);
+            let mut _nest_vp = _vword[1..=(_nest+1)].to_vec();
+            _nest_vp.reverse();
+            // to_string
+            let sense_vp = _nest_vp.join("/");
+            debug!("sense_vp:{}",&sense_vp);
+            //==========================================================
+            if sense_vp.find(&_search_dir).is_some() {
                 _return = _vp;
                 debug!("%{}%",&_vword[1]);
                 break 'outer;
