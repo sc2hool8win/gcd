@@ -112,6 +112,11 @@ If you have a unique directory name under the control of git, you can skip the l
     ```
 1. Internal Automatic Operation
     1. If the creation date of the file ".git/logs/HEAD" is newer than the creation date of the dictionary list, the dictionary list ".keepCache" will be automatically rebuilt before being moved by the command.   
+1. The case of the same DIR name "xyz" is handled by the unique name including the upper PATH.
+    ```bash
+    $ gcd hier123/xyz
+    $ gcd hier456/xyz
+    ```
 
 ## Status
 - Release v0.2.0 : Enhancement of Issue #5.
