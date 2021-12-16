@@ -183,13 +183,18 @@ fn create_keep_cache_list( _top_dir:&str){
     trace!("Vec Length {}",_vec_dlink.len());
     trace!("Vector: {:?}", _vec_dlink);
     let mut _vec_gcd:Vec<GcdPath> = Vec::new();
-    for _vec in _vec_dlink.iter() {
-        trace!("{}", _vec);
+
+    '_for_vec: for _vec in _vec_dlink.iter() {
+        trace!("_vec={}", _vec);
         let re = Regex::new(r"(.*/)(\w+/)\^").unwrap();
-        let caps = re.captures(_vec).unwrap();
+        //let caps = re.captures(_vec).unwrap();
+        let caps = match re.captures(_vec) {
+            Some(_x) => _x,
+            None     => continue '_for_vec,
+        };
         let capi:u32 = *(&caps[2].len()) as u32;
-        trace!("=>{}", &caps[2]);
-        trace!("=>{:?}", capi);
+        trace!("caps2=>{}", &caps[2]);
+        trace!("capi==>{:?}", capi);
         let caps12 = caps[1].to_string() + &caps[2];
         _vec_gcd.push(GcdPath::new( caps12 , capi)) ;
     }
