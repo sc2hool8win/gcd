@@ -259,13 +259,13 @@ fn get_gcd_path( _top_dir:&str, _search_dir:&str) -> String{
             debug!("_nest:{}",&_nest);
             let mut _nest_vp = _vword[1..=(_nest+1)].to_vec();
             _nest_vp.reverse();
-            // to_string
-            let sense_vp = _nest_vp.join("/");
+            // join Directory Path
+            let sense_vp = _nest_vp.join("/") + "/";
             debug!("sense_vp:{}",&sense_vp);
             //==========================================================
             if sense_vp.find(&_search_dir).is_some() {
                 _return = _vp;
-                debug!("%{}%",&_vword[1]);
+                debug!("sense_find%{}%",&_vword[1]);
                 break 'outer;
             }
         }
